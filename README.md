@@ -34,3 +34,5 @@ This is my diploma project for university of technology in Koszalin.
     
 ### Data visualisation
     Comming soon
+
+## REST API
