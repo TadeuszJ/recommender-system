@@ -1,4 +1,4 @@
-package com.engineerproject.recommendationsystem;
+package com.engineerproject.recommendationsystem.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -6,3 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
+
+test:
+  active-user-id: ---1lKK3aKOuomHnwAkAow
+  selected-category: Restaurants

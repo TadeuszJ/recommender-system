@@ -1,6 +1,6 @@
-package com.engineerproject.recommendationsystem.model;
+package com.engineerproject.recommendationsystem.infrastructure.model;
 
-import com.engineerproject.recommendationsystem.model.utils.AbstractEntity;
+import com.engineerproject.recommendationsystem.app.utils.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

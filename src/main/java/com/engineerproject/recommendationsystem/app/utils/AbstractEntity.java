@@ -1,4 +1,4 @@
-package com.engineerproject.recommendationsystem.model.utils;
+package com.engineerproject.recommendationsystem.app.utils;
 
 import lombok.Data;
 
