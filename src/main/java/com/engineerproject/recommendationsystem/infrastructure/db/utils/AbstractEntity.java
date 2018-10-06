@@ -1,16 +1,16 @@
-package com.engineerproject.recommendationsystem.app.utils;
+package com.engineerproject.recommendationsystem.infrastructure.db.utils;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @Data
-@Entity
-public abstract class AbstractEntity {
+@MappedSuperclass
+public abstract class AbstractEntity<T> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private T id;
 }
