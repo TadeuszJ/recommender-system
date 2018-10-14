@@ -1,9 +1,9 @@
 package com.engineerproject.recommendationsystem.app.neighbors;
 
 
+import com.engineerproject.recommendationsystem.app.neighbors.dto.CorrelationDTO;
 import com.engineerproject.recommendationsystem.app.neighbors.dto.NeighborsDTO;
 import com.engineerproject.recommendationsystem.app.neighbors.dto.RatesPairDTO;
-import com.engineerproject.recommendationsystem.app.neighbors.dto.UserCorrelationDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
@@ -18,7 +18,8 @@ public class NeighborsCollector {
     private final NeighborsRepository neighborsRepository;
 
     public NeighborsDTO updateNeighbors(String activeUserId) {
-        NeighborsDTO result = new NeighborsDTO(activeUserId);
+        NeighborsDTO result = new NeighborsDTO();
+        result.setActiveUserId(activeUserId);
 
         List<String> potentialNeighbors = neighborsRepository.getPotentialNeighbors(activeUserId);
         log.info("select potential neighbors: {}", potentialNeighbors.size());
@@ -32,7 +33,7 @@ public class NeighborsCollector {
                 log.info("Calculated correlation for user {} is {}", selectedUserId, correlation);
 
                 if (correlation > 0) {
-                    UserCorrelationDTO userCorrelation = new UserCorrelationDTO(selectedUserId, correlation);
+                    CorrelationDTO userCorrelation = new CorrelationDTO(selectedUserId, correlation);
                     result.getCorrelations().add(userCorrelation);
                 }
             }
@@ -40,7 +41,7 @@ public class NeighborsCollector {
             Float progress = (count / potentialNeighbors.size()) * 100;
             log.info("Progress: {}%", progress.intValue());
         }
-
+        neighborsRepository.saveNeighbor(result);
         return result;
     }
 
