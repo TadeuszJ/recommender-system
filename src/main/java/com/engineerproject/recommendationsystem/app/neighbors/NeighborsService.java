@@ -2,8 +2,8 @@ package com.engineerproject.recommendationsystem.app.neighbors;
 
 
 import com.engineerproject.recommendationsystem.app.neighbors.dto.CorrelationDTO;
-import com.engineerproject.recommendationsystem.app.neighbors.dto.NeighborsDTO;
 import com.engineerproject.recommendationsystem.app.neighbors.dto.RatesPairDTO;
+import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
-public class NeighborsCollector {
+public class NeighborsService {
 
     private final NeighborsRepository neighborsRepository;
 
-    public NeighborsDTO updateNeighbors(String activeUserId) {
-        NeighborsDTO result = new NeighborsDTO();
+    public Users updateNeighbors(String activeUserId) {
+        Users result = new Users();
         result.setActiveUserId(activeUserId);
 
         List<String> potentialNeighbors = neighborsRepository.getPotentialNeighbors(activeUserId);
@@ -41,7 +41,7 @@ public class NeighborsCollector {
             Float progress = (count / potentialNeighbors.size()) * 100;
             log.info("Progress: {}%", progress.intValue());
         }
-        neighborsRepository.saveNeighbor(result);
+//        neighborsRepository.saveNeighbor(result);
         return result;
     }
 

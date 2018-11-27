@@ -1,34 +1,44 @@
 package com.engineerproject.recommendationsystem.infrastructure.rest;
 
+import com.engineerproject.recommendationsystem.app.ann.dto.RowDataSetDTO;
 import com.engineerproject.recommendationsystem.app.neighbors.dto.RatesPairDTO;
 import com.engineerproject.recommendationsystem.infrastructure.rest.dto.UsersPairDTO;
+import com.engineerproject.recommendationsystem.infrastructure.rest.utils.HttpUtils;
 import com.engineerproject.recommendationsystem.infrastructure.rest.utils.UrlConstant;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ReviewRestClient {
     private static final String REVIEW_URI = UrlConstant.BASE_URI + "/review";
+    private RestTemplate restTemplate = new RestTemplate();
 
-    public List<RatesPairDTO> getCommonsStars(String activeUserId, String selectedUserId) {
+    public List<RatesPairDTO> getCommonsStars(UsersPairDTO usersPair) {
         String uri = REVIEW_URI + "/rates-pairs";
+        HttpEntity<UsersPairDTO> entity = HttpUtils.getBasicHttpEntity(usersPair);
 
-        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<List<RatesPairDTO>> result = restTemplate.exchange(uri, HttpMethod.POST, entity, HttpUtils.getRatesPairListType());
+        return result.getBody();
+    }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
+    public Integer getRate(String userId, String businessId) {
+        String uri = REVIEW_URI + "/rate/user/" + userId + "/business/" + businessId;
+        HttpEntity<Object> entity = HttpUtils.getBasicHttpEntity();
 
-        UsersPairDTO body = new UsersPairDTO(activeUserId, selectedUserId);
+        ResponseEntity<Integer> result = restTemplate.exchange(uri, HttpMethod.GET, entity, Integer.class);
+        return result.getBody();
+    }
 
-        HttpEntity<UsersPairDTO> entity = new HttpEntity<>(body, headers);
+    public List<RowDataSetDTO> getDataSet(List<String> userIds, String businessId) {
+        String joinedUserIds = StringUtils.join(userIds, ",");
+        String uri = REVIEW_URI + "/ann-data-set/user/" + joinedUserIds + "/business/" + businessId;
+        HttpEntity<Object> entity = HttpUtils.getBasicHttpEntity();
 
-        ResponseEntity<List<RatesPairDTO>> result = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<RatesPairDTO>>() {
-        });
-
+        ResponseEntity<List<RowDataSetDTO>> result = restTemplate.exchange(uri, HttpMethod.GET, entity, HttpUtils.getRowDataSetListType());
         return result.getBody();
     }
 }
