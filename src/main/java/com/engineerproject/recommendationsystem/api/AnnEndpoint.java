@@ -20,7 +20,7 @@ public class AnnEndpoint {
 
     private final AnnService annService;
 
-    @GetMapping("/learn/user")
+    @GetMapping("/learn")
     public ResponseEntity<Double> learn() {
         return ResponseEntity.ok(annService.learn());
     }
