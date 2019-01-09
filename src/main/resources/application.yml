@@ -8,3 +8,5 @@ spring:
     driver-class-name:
 server:
   port: 8082
+ann:
+  pathToSave: C:/ann/4-8-8.ann

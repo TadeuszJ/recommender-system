@@ -3,7 +3,7 @@ package com.engineerproject.recommendationsystem.infrastructure;
 import com.engineerproject.recommendationsystem.app.neighbors.NeighborsRepository;
 import com.engineerproject.recommendationsystem.app.neighbors.dto.RatesPairDTO;
 import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.UserRepositoryDB;
-import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.Users;
+import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.User;
 import com.engineerproject.recommendationsystem.infrastructure.rest.ReviewRestClient;
 import com.engineerproject.recommendationsystem.infrastructure.rest.UserRestClient;
 import com.engineerproject.recommendationsystem.infrastructure.rest.dto.UsersPairDTO;
@@ -19,7 +19,7 @@ public class NeighborsRepositoryImpl implements NeighborsRepository {
     private final ReviewRestClient reviewRestClient;
 
     @Override
-    public void saveNeighbor(Users neighbors) {
+    public void saveNeighbor(User neighbors) {
         userRepositoryDB.save(neighbors);
     }
 

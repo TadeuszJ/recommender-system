@@ -1,7 +1,7 @@
 package com.engineerproject.recommendationsystem.api;
 
 import com.engineerproject.recommendationsystem.app.neighbors.NeighborsService;
-import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.Users;
+import com.engineerproject.recommendationsystem.infrastructure.mongodb.user.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +21,12 @@ public class NeighborsEndpoint {
     private final NeighborsService neighborsService;
 
     @GetMapping("/{id}/update")
-    private ResponseEntity<Users> update(@PathVariable String id) {
+    private ResponseEntity<User> update(@PathVariable String id) {
         return ResponseEntity.ok(neighborsService.updateNeighbors(id));
     }
 
     @GetMapping("/{userId}/update/business/{businessId}")
-    private ResponseEntity<Users> update(@PathParam("userId") String userId, @PathParam("businessId") String businessId) {
+    private ResponseEntity<User> update(@PathParam("userId") String userId, @PathParam("businessId") String businessId) {
         return ResponseEntity.ok(neighborsService.updateNeighbors(userId));
     }
 }
