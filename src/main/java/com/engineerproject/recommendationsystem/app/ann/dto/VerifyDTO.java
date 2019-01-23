@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class PredictionDTO {
-    private String businessId;
-    private Double rate;
+@AllArgsConstructor
+public class VerifyDTO {
+    private Double maxDifference;
+    private Double minDifference;
+    private Double avgDifference;
 }

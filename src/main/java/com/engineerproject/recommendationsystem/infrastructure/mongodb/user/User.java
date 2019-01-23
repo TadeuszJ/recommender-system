@@ -19,6 +19,4 @@ public class User {
     private List<CorrelationDTO> correlations = new ArrayList<>();
 
     private List<PredictionDTO> predictions = new ArrayList<>();
-
-
 }

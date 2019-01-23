@@ -6,9 +6,10 @@ import org.neuroph.nnet.learning.BackPropagation;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class BackPropagationGenerator {
-    static BackPropagation create() {
+    static BackPropagation create(Double maxError, Integer maxInterations) {
         BackPropagation backPropagation = new BackPropagation();
-        backPropagation.setMaxIterations(100);
+        backPropagation.setMaxIterations(maxInterations);
+        backPropagation.setMaxError(maxError);
         return backPropagation;
     }
 }

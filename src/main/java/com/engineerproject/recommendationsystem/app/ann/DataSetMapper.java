@@ -12,7 +12,7 @@ import java.util.List;
 class DataSetMapper {
 
     static DataSet map(List<DataSetRowDTO> domainDataSet) {
-        DataSet dataSet = new DataSet(15, 1);
+        DataSet dataSet = new DataSet(15, 5);
 
         for (DataSetRowDTO row : domainDataSet) {
             double[] input = getInputArray(row);
@@ -31,20 +31,26 @@ class DataSetMapper {
                 row.getBusinessUseful(),
                 row.getBusinessFunny(),
                 row.getBusinessCool(),
+                row.getReviewAvgDays(),
+                row.getUserReviewsCount(),
+                row.getUserReceivedUseful(),
+                row.getUserReceivedCool(),
+                row.getUserReceivedFunny(),
                 row.getFansCount(),
-                row.getFriendsCount(),
                 row.getDaysYelping(),
                 row.getReceivedComplimentsCount(),
                 row.getUserSentVotesCount(),
-                row.getUserReviewsCount(),
-                row.getReviewAvgDays(),
-                row.getUserReceivedUseful(),
-                row.getUserReceivedCool(),
-                row.getUserReceivedFunny()
+                row.getFriendsCount()
         };
     }
 
     private static double[] getOutputArray(DataSetRowDTO row) {
-        return new double[]{row.getRate()};
+        return new double[]{
+                row.getRate() == 1 ? 1 : 0,
+                row.getRate() == 2 ? 1 : 0,
+                row.getRate() == 3 ? 1 : 0,
+                row.getRate() == 4 ? 1 : 0,
+                row.getRate() == 5 ? 1 : 0
+        };
     }
 }

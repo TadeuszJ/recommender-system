@@ -9,4 +9,8 @@ spring:
 server:
   port: 8082
 ann:
-  pathToSave: C:/ann/4-8-8.ann
+  pathToSave: C:/ann/2019-01-11-v3.ann
+
+logging:
+  level:
+    org.springframeworkdata.mongodb.core.MongoTempalte: DEBUG

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Slf4j
@@ -19,6 +20,11 @@ import java.util.List;
 public class AnnEndpoint {
 
     private final AnnService annService;
+
+    @PostConstruct
+    public void createAnn() {
+        annService.createNeuralNetwork();
+    }
 
     @GetMapping("/learn")
     public ResponseEntity<Double> learn() {

@@ -4,21 +4,40 @@ import com.engineerproject.recommendationsystem.app.ann.dto.PredictionDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class PredictionMapper {
     static PredictionDTO map(String businessId, double... outputs) {
-        List<Double> list = DoubleStream.of(outputs)
-                .map(o -> o * 5.0)
-                .boxed()
-                .collect(Collectors.toList());
-
         return PredictionDTO.builder()
                 .businessId(businessId)
-                .rate(list)
+                .rate(getRate(outputs))
                 .build();
+    }
+
+    private static double getRateAvg(double[] outputs) {
+        double sum = 0d;
+        double sumWeighs = 0d;
+
+        for (int i = 0; i < outputs.length; i++) {
+            sum += outputs[i] * (i + 1);
+            sumWeighs += i + 1;
+        }
+
+        sumWeighs = sumWeighs == 0 ? 1 : sumWeighs;
+
+        return sum / sumWeighs;
+    }
+
+    private static double getRate(double[] outputs) {
+        double max = 0;
+        int maxRate = 0;
+
+        for (int i = 0; i < outputs.length; i++) {
+            if (max < outputs[i]) {
+                max = outputs[i];
+                maxRate = i + 1;
+            }
+        }
+
+        return maxRate;
     }
 }
